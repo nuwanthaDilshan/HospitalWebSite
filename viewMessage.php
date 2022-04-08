@@ -57,7 +57,7 @@ function filterTable($query)
   <!-- navigation bar -->
 
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="index.html">
       <img src="Images/logo.jpg" width="50px" height="30px" class="d-inline-block align-top" alt="">
       NSACP
     </a>

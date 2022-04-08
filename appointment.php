@@ -53,7 +53,7 @@ if (isset($_POST['Add'])) {
   </head>
   <body>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="index.html">
         <img
           src="Images/logo.jpg"
           width="50px"
