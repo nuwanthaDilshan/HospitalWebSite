@@ -1,37 +1,42 @@
-*{
-  font-family: 'Times New Roman', Times, serif;
+:root{
+   --main-color:#2980b9;
+   --orange:#f39c12;
+   --red:#e74c3c;
+   --black:#02041d;
+   --white:#fff;
+   --light-color:#666;
+   --light-bg:#eee;
+   --border:.2rem solid var(--black);
+   --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+
+body {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+p {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.section-padding {
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 
 /* home */
 
-.header {
-  min-height: 100vh;
-  width: 100%;
-  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
-    url(../Images/main\ image.jpg);
-  background-position: center;
-  background-size: cover;
-  position: relative;
+#hero {
+  background: linear-gradient(rgba(4, 9, 30, 0.9), rgba(4, 9, 30, 0.9)), url(../Images/main_image.jpg);
+  background-position: top;
+  margin-top: -58px;
 }
 
-.text-box {
-  width: 90%;
-  color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.text-box h1 {
-  font-size: 62px;
-}
-
-.text-box p {
-  margin: 10px 0 40px;
-  font-size: 14px;
-  color: #fff;
+.heroText {
+  font-size: 70px;
+  font-weight: 700;
 }
 
 .hero-btn {
@@ -45,61 +50,182 @@
   cursor: pointer;
 }
 
+
+.header{
+   position: sticky;
+   top:0; left:0; right:0;
+   background-color: var(--black);
+   box-shadow: var(--box-shadow);
+   z-index: 1000;
+}
+
+.header .flex{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   position: relative;
+}
+
+.header .flex .logo{
+   font-size: 2.5rem;
+   color:var(--white);
+   text-decoration: none;
+}
+
+.header .flex .logo span{
+   color:var(--main-color);
+}
+
+.header .flex .navbar a{
+   margin:0 1rem;
+   font-size: 1.5rem;
+   color:var(--white);
+   text-decoration: none;
+}
+
+.header .flex .navbar a:hover{
+   color:var(--main-color);
+}
+
+
+.header .flex .icons > *{
+   margin-left: 1rem;
+   font-size: 1.7rem;
+   cursor: pointer;
+   color:var(--white);
+}
+
+.header .flex .icons > *:hover{
+   color:var(--main-color);
+}
+
+.header .flex .icons a span{
+   font-size: 2rem;
+}
+
+.header .flex .profile{
+   position: absolute;
+   top:120%; right:2rem;
+   background-color: var(--black);
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   border:var(--border);
+   padding:2rem;
+   width: 25rem;
+   padding-top: 1.2rem;
+   display: none;
+   animation:fadeIn .2s linear;
+}
+
+.header .flex .profile.active{
+   display: inline-block;
+}
+
+.header .flex .profile p{
+   text-align: center;
+   color:var(--white);
+   font-size: 1.5rem;
+   margin-bottom: 1rem;
+}
+
+#menu-btn{
+   display: none;
+}
+
+/* btn */
+
+.main-btn,
+.delete-btn,
+.option-btn{
+   display: block;
+   width: 100%;
+   margin-top: 1rem;
+   border-radius: .5rem;
+   padding:1rem 2rem;
+   font-size: 1.0rem;
+   text-transform: capitalize;
+   color:var(--white);
+   cursor: pointer;
+   text-align: center;
+   text-decoration: none;
+
+}
+
+.main-btn{
+   background-color: var(--main-color);
+}
+
+.option-btn{
+   background-color: var(--orange);
+}
+
+.delete-btn{
+   background-color: var(--red);
+}
+
+.main-btn:hover,
+.delete-btn:hover,
+.option-btn:hover{
+   background-color: var(--black);
+   color: var(--white);  
+}
+
+.flex-btn{
+   display: flex;
+   gap:1rem;
+}
+
+.btn-co:hover{
+  color: var(--white) !important;
+  background-color: var(--black) !important;
+}
+
+.btn-size{
+   width: 200px;
+
+
+}
+
+/* messages */
+
+.message{
+   position: sticky;
+   top:0;
+   max-width: 1200px;
+   margin:0 auto;
+   background-color: var(--light-bg);
+   padding:2rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap:1.5rem;
+   z-index: 1100;
+}
+
+.message span{
+   font-size: 2rem;
+   color:var(--black);
+}
+
+.message i{
+   cursor: pointer;
+   color:var(--red);
+   font-size: 2.5rem;
+}
+
+.message i:hover{
+   color:var(--black);
+}
+
+
+/* about us */
+
 .aboutMain {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url(../Images/aboutMain.jpg);
   background-size: 100% 100%;
   width: 100%;
   padding: 100px 0;
-}
-
-/* gallery */
-
-.container.gallery-container {
-  background-color: #fff;
-  color: #35373a;
-  min-height: 100vh;
-  border-radius: 20px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
-}
-
-.gallery-container h1 {
-  text-align: center;
-  margin-top: 70px;
-  font-family: "Droid Sans", sans-serif;
-  font-weight: bold;
-}
-
-.gallery-container p.page-description {
-  text-align: center;
-  max-width: 800px;
-  margin: 25px auto;
-  color: #888;
-  font-size: 18px;
-}
-
-.tz-gallery {
-  padding: 40px;
-}
-
-.tz-gallery .lightbox img {
-  width: 100%;
-  margin-bottom: 30px;
-  transition: 0.2s ease-in-out;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-}
-
-.tz-gallery .lightbox img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-}
-
-.tz-gallery img {
-  border-radius: 4px;
-}
-
-.baguetteBox-button {
-  background-color: transparent !important;
 }
 
 /* contact us */

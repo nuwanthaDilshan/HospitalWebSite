@@ -1,5 +1,16 @@
 <?php
 
+include "./components/connect.php";
+
+  session_start();
+
+  if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+  } else {
+    $user_id = '';
+  };
+
+
 if (isset($_POST['search'])) {
   $valueToSearch = $_POST['searchdetails'];
   // search in all table columns
@@ -14,7 +25,7 @@ if (isset($_POST['search'])) {
 // function to connect and execute the query
 function filterTable($query)
 {
-  $connect = mysqli_connect("127.0.0.1", "root", "", "hospital2");
+  $connect = mysqli_connect("127.0.0.1", "root", "", "hospital");
   $filter_Result = mysqli_query($connect, $query);
   return $filter_Result;
 }
@@ -28,8 +39,8 @@ function filterTable($query)
 
   <!-- link bootstrap -->
 
-  <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 
   <!-- link font awesome -->
 
@@ -54,52 +65,15 @@ function filterTable($query)
 
 <body>
 
-  <!-- navigation bar -->
+  <?php
 
-  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.html">
-      <img src="Images/logo.jpg" width="50px" height="30px" class="d-inline-block align-top" alt="">
-      NSACP
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link text-info font-weight-bold" href="index.html">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="services.html">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="adminLogin.html">Admin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="doctorLogin.html">Doctor</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contactUs.html">Contact Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="aboutUs.html">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ml-4" href="login.html">Sign In</a>
-        </li>
-        <li class="nav-item" style="color: Warning;">
-          <a class="nav-link btn btn-info pl-4 pr-4 btn-sm" href="register.html">Join</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  include "./components/userheader.php"
 
-  <br>
-  <br>
+  ?>
 
 
 
-  <section class="vh-200" style="background-color: #0489B1;">
+  <section class="vh-1000" style="background-color: #0489B1;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-xl-11">
@@ -110,9 +84,10 @@ function filterTable($query)
                   <h1 class="text-center"> STD/AIDS Control program Sexual health clinic</h1>
 
                   <form class="mx-2 my-auto w-100" action="clinicDetails.php" method="post">
-                    <input class="form-control mr-sm-2 my-1" type="text" name="searchdetails" placeholder=" Search Details">
-                    <input class="btn btn-outline-info float-right my-2 my-sm-0 " type="submit" name="search" value="Search">
-                    <br><br>
+                    <div class="d-flex justify-content-center my-3">
+                      <input class="form-control mr-sm-2 mx-3" type="text" name="searchdetails" placeholder=" Search Details">
+                      <input class="btn btn-info float-right my-2 my-sm-0 " type="submit" name="search" value="Search">
+                    </div>
 
                     <table>
                       <tr>
@@ -150,50 +125,19 @@ function filterTable($query)
   </section>
 
 
-  <!-- footer -->
+  <?php
 
-  <section class="footer">
-    <footer class="bg-light text-center text-white">
-      <!-- Grid container -->
-      <div class="container p-4 pb-0">
-        <!-- Section: Social media -->
-        <section class="mb-4">
-          <!-- Facebook -->
-          <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+  include "./components/footer.php"
 
-          <!-- Twitter -->
-          <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+  ?>
 
-          <!-- Google -->
-          <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i class="fab fa-google"></i></a>
+  <script src="./js/script.js"></script>
 
-          <!-- Instagram -->
-          <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac;" href="#!" role="button"><i class="fab fa-instagram"></i></a>
-
-          <!-- Linkedin -->
-          <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca;" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
-          <!-- Github -->
-          <a class="btn btn-primary btn-floating m-1" style="background-color: #333333;" href="#!" role="button"><i class="fab fa-github"></i></a>
-        </section>
-        <!-- Section: Social media -->
-      </div>
-      <!-- Grid container -->
-
-      <!-- Copyright -->
-      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        &copy 2021 Copyright:
-        <a class="text-white" href="#">NSACP.com</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
-  </section>
 
   <!-- link bootstrap js -->
 
-  <script src="Bootstrap/js/bootstrap.js"></script>
-  <script src="Bootstrap/js/jquery.min.js"></script>
-  <script src="Bootstrap/js/popper.min.js"></script>
-  <script src="Bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 
 </body>
 
