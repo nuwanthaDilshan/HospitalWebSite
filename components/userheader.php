@@ -1,14 +1,14 @@
 <?php
-   if(isset($message)){
-      foreach($message as $message){
-         echo '
+if (isset($message)) {
+   foreach ($message as $message) {
+      echo '
          <div class="message">
-            <span>'.$message.'</span>
+            <span>' . $message . '</span>
             <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
          </div>
          ';
-      }
    }
+}
 ?>
 
 <header class="header">
@@ -31,32 +31,40 @@
       </div>
 
       <div class="profile">
-         <?php          
-            $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
-            $select_profile->execute([$user_id]);
-            if($select_profile->rowCount() > 0){
+         <?php
+         $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+         $select_profile->execute([$user_id]);
+         if ($select_profile->rowCount() > 0) {
             $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
          ?>
-         <p><?= $fetch_profile["Name"]; ?></p>
-         <a href="./user_profile.php" class="btn option-btn">update profile</a>
-         <div class="flex-btn">
-            <!-- <a href="register.php" class="option-btn">register</a>
+            <p><?= $fetch_profile["Name"]; ?></p>
+            <div class="row">
+               <div class="col-6">
+                  <a href="./user_profile.php" class="btn option-btn">update profile</a>
+               </div>
+               <div class="col-6">
+                  <a href="./appointment.php" class="btn option-btn">Make Appointment</a>
+               </div>
+            </div>
+            <div class="flex-btn">
+               <!-- <a href="register.php" class="option-btn">register</a>
             <a href="login.php" class="option-btn">login</a> -->
-         </div>
-         <a href="components/userlogout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a> 
+            </div>
+            <a href="./components/userlogout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a>
          <?php
-            }else{
+      
+      } else {
          ?>
-         <p>please login or register first!</p>
-         <div class="flex-btn">
-            <a href="register.php" class="option-btn">register</a>
-            <a href="login.php" class="option-btn">login</a>
-         </div>
+            <p>please login or register first!</p>
+            <div class="flex-btn">
+               <a href="register.php" class="option-btn">register</a>
+               <a href="login.php" class="option-btn">login</a>
+            </div>
          <?php
-            }
-         ?>      
-         
-         
+         }
+         ?>
+
+
       </div>
 
    </section>

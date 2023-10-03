@@ -63,8 +63,8 @@ if (isset($_GET['delete'])) {
 
       <div class="row">
         <?php
-        $select_appointments = $conn->prepare("SELECT * FROM `appointment`");
-        $select_appointments->execute();
+        $select_appointments = $conn->prepare("SELECT * FROM `appointment` WHERE user_id = ?");
+        $select_appointments->execute([$user_id]);
         $counter = 0;
         while ($fetch_appointments = $select_appointments->fetch(PDO::FETCH_ASSOC)) {
           if ($counter % 3 == 0) {

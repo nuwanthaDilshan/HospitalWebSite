@@ -2,33 +2,33 @@
 
 include "./components/connect.php";
 
-  session_start();
+session_start();
 
-  if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-  } else {
-    $user_id = '';
-  };
-
-
-if (isset($_POST['search'])) {
-  $valueToSearch = $_POST['searchdetails'];
-  // search in all table columns
-  // using concat mysql function
-  $query = "SELECT * FROM `clinicdetail` WHERE  CONCAT(`No`,`Disease`,`Doctor`,`Treatment`,`Testing`) LIKE '%" . $valueToSearch . "%'";
-  $search_result = filterTable($query);
+if (isset($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
 } else {
-  $query = "SELECT * FROM `clinicdetail` WHERE 1";
-  $search_result = filterTable($query);
-}
+  $user_id = '';
+};
 
-// function to connect and execute the query
-function filterTable($query)
-{
-  $connect = mysqli_connect("127.0.0.1", "root", "", "hospital");
-  $filter_Result = mysqli_query($connect, $query);
-  return $filter_Result;
-}
+
+// if (isset($_POST['search'])) {
+//   $valueToSearch = $_POST['searchdetails'];
+//   // search in all table columns
+//   // using concat mysql function
+//   $query = "SELECT * FROM `clinicdetail` WHERE  CONCAT(`No`,`Disease`,`Doctor`,`Treatment`,`Testing`) LIKE '%" . $valueToSearch . "%'";
+//   $search_result = filterTable($query);
+// } else {
+//   $query = "SELECT * FROM `clinicdetail` WHERE 1";
+//   $search_result = filterTable($query);
+// }
+
+// // function to connect and execute the query
+// function filterTable($query)
+// {
+//   $connect = mysqli_connect("127.0.0.1", "root", "", "hospital");
+//   $filter_Result = mysqli_query($connect, $query);
+//   return $filter_Result;
+// }
 
 ?>
 
@@ -73,48 +73,50 @@ function filterTable($query)
 
 
 
-  <section class="vh-1000" style="background-color: #0489B1;">
+  <section class="vh-1000" style="background-color: #0489b1">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-xl-11">
-          <div class="card" style="border-radius: 1rem;">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem">
             <div class="row g-0">
               <div class="col-md-3 col-lg-12 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
-                  <h1 class="text-center"> STD/AIDS Control program Sexual health clinic</h1>
-
-                  <form class="mx-2 my-auto w-100" action="clinicDetails.php" method="post">
-                    <div class="d-flex justify-content-center my-3">
-                      <input class="form-control mr-sm-2 mx-3" type="text" name="searchdetails" placeholder=" Search Details">
-                      <input class="btn main-btn btn-size float-right my-2 my-sm-0 " type="submit" name="search" value="Search">
+                  <form action="" method="POST">
+                    <div class="d-flex align-items-center mb-3 pb-1">
+                      <i class="fas fa-tasks fa-3x mr-2" style="color: #55acee"></i>
+                      <span class="h1 fw-bold mb-0">Clinic Detail</span>
                     </div>
-
-                    <table>
-                      <tr>
-                        <th> No </th>
-                        <th> Disease </th>
-                        <th> Treatment </th>
-                        <th> Testing </th>
-                        <th> Doctor </th>
-                        <th> Day </th>
-                        <th> Time </th>
-                      </tr>
-
-                      <!-- populate table from mysql database -->
-                      <?php while ($row = mysqli_fetch_array($search_result)) : ?>
+                    <table class="table table-bordered table-hover">
+                      <thead>
                         <tr>
-                          <td><?php echo $row['No']; ?></td>
-                          <td><?php echo $row['Disease']; ?></td>
-                          <td><?php echo $row['Treatment']; ?></td>
-                          <td><?php echo $row['Testing']; ?></td>
-                          <td><?php echo $row['Doctor']; ?></td>
-                          <td><?php echo $row['Day']; ?></td>
-                          <td><?php echo $row['Time']; ?></td>
+                          <th>Disease</th>
+                          <th>Treatment</th>
+                          <th>Testing</th>
+                          <th>Doctor</th>
+                          <th>Day</th>
+                          <th>Time</th>
                         </tr>
-                      <?php endwhile; ?>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $select_appointments = $conn->prepare("SELECT * FROM `clinicdetail`");
+                        $select_appointments->execute();
+                        while ($row = $select_appointments->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                          <tr>
+                            <td><?= $row['Disease']; ?></td>
+                            <td><?= $row['Treatment']; ?></td>
+                            <td><?= $row['Testing']; ?></td>
+                            <td><?= $row['Doctor']; ?></td>
+                            <td><?= $row['Day']; ?></td>
+                            <td><?= $row['Time']; ?></td>
+                          </tr>
+                        <?php
+                        }
+                        ?>
+                      </tbody>
                     </table>
                   </form>
-
                 </div>
               </div>
             </div>

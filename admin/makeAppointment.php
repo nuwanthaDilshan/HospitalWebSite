@@ -1,14 +1,14 @@
 <?php
 
-include "./components/connect.php";
+include '../components/connect.php';
 
 session_start();
 
-if (isset($_SESSION['user_id'])) {
-  $user_id = $_SESSION['user_id'];
-} else {
-  $user_id = '';
-};
+$admin_id = $_SESSION['admin_id'];
+
+if (!isset($admin_id)) {
+  header('location:adminLogin.php');
+}
 
 if (isset($_POST['submit'])) {
 
@@ -20,15 +20,15 @@ if (isset($_POST['submit'])) {
   $Doctor = filter_var($Doctor, FILTER_SANITIZE_STRING);
 
   $select_user = $conn->prepare("SELECT * FROM `appointment` WHERE PatientName = ? AND PatientMobileNumber = ? AND Doctor = ? ");
-  $select_user->execute([$name, $MobileNumber, $Doctor,]);
+  $select_user->execute([$name, $MobileNumber, $Doctor]);
   $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
   if ($select_user->rowCount() > 0) {
     $message[] = 'Doctor already exists!';
   } else {
-    $insert_user = $conn->prepare("INSERT INTO `appointment`(user_id, PatientName, PatientMobileNumber, Doctor) VALUES(?,?,?,?)");
-    $insert_user->execute([$user_id, $name, $MobileNumber, $Doctor]);
-    $message[] = 'registered successfully, login now please!';
+    $insert_user = $conn->prepare("INSERT INTO `appointment`(PatientName, PatientMobileNumber, Doctor) VALUES(?,?,?)");
+    $insert_user->execute([$name, $MobileNumber, $Doctor]);
+    $message[] = 'Appointment made successfully!';
   }
 }
 ?>
@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
 
   <!-- link css -->
 
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
 
   <title>NSACP HOSPITAL</title>
 </head>
@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
 <body>
   <?php
 
-  include "./components/userheader.php"
+  include "../components/admin_header.php"
 
   ?>
   <section class="vh-200" style="background-color: #0489b1">
@@ -79,13 +79,12 @@ if (isset($_POST['submit'])) {
                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
                       Appointment Details
                     </h5>
-
                     <div class="form-outline mb-4">
-                      <input type="text" name="PatientName" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Name" value="<?= $fetch_profile["Name"]; ?>" />
+                      <input type="text" name="PatientName" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Name" />
                       <label class="form-label" for="form2Example17">Patient Name</label>
                     </div>
                     <div class="form-outline mb-4">
-                      <input type="text" name="PatientMobileNumber" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Mobile Number" value="<?= $fetch_profile["MobileNumber"]; ?>" />
+                      <input type="text" name="PatientMobileNumber" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Mobile Number" />
                       <label class="form-label" for="form2Example17">Patient Mobile Number</label>
                     </div>
                     <div class="form-outline mb-4">
@@ -110,15 +109,9 @@ if (isset($_POST['submit'])) {
     </div>
   </section>
 
-  <!-- footer -->
+ 
 
-  <?php
-
-  include "./components/footer.php"
-
-  ?>
-
-  <script src="./js/script.js"></script>
+  <script src="../js/admin.js"></script>
 
   <!-- link bootstrap js -->
 

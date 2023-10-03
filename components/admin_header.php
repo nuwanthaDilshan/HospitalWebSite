@@ -43,7 +43,7 @@ if (isset($message)) {
         <a href="#" class="option-btn">register</a>
         <a href="#" class="option-btn">login</a>
       </div>
-      <a href="../admin/adminLogin.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a>
+      <a href="../components/admin_logout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a>
     </div>
 
   </section>

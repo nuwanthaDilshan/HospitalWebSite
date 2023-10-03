@@ -9,6 +9,14 @@ $admin_id = $_SESSION['admin_id'];
 if (!isset($admin_id)) {
   header('location:adminLogin.php');
 }
+
+if (isset($_POST['delete'])) {
+  $user_id = $_POST['user_id'];
+  $delete_user = $conn->prepare("DELETE FROM `appointment` WHERE id = ?");
+  $delete_user->execute([$user_id]);
+  $message[] = 'User deleted successfully!';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,8 +58,8 @@ if (!isset($admin_id)) {
       </div>
 
       <div class="continer text-center align-items-center">
-        <div class="row my-4">
-          <div class="col-6 mx-2 shadow-lg p-3 mb-5 bg-body rounded profile_box">
+        <div class="d-flex justify-content-center">
+          <div class="mx-2 shadow-lg p-3 bg-body rounded profile_box">
             <?php
             $select_appointments = $conn->prepare("SELECT * FROM `appointment`");
             $select_appointments->execute();
@@ -59,22 +67,73 @@ if (!isset($admin_id)) {
             ?>
             <p class="fs-3"><?= $number_of_appointments; ?></p>
             <p class="fs-5">Make Appointment</p>
-            <a href="appointment.php" class="option-btn">Make Appointmet</a>
-          </div>
-          <div class="col-6 mx-2 shadow-lg p-3 mb-5 bg-body rounded profile_box">
-            <?php
-            $select_appointments = $conn->prepare("SELECT * FROM `appointment`");
-            $select_appointments->execute();
-            $number_of_appointments = $select_appointments->rowCount()
-            ?>
-            <p class="fs-3"><?= $number_of_appointments; ?></p>
-            <p class="fs-5">See Appointments</p>
-            <a href="appointmentView.php" class="option-btn">See Appointmets</a>
+            <a href="makeAppointment.php" class="option-btn">Make Appointmet</a>
           </div>
         </div>
       </div>
     </div>
 
+  </section>
+
+  <section class="vh-200" style="background-color: #0489b1">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem">
+            <div class="row g-0">
+              <div class="col-md-3 col-lg-12 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5 text-black">
+                  <form action="" method="POST">
+                    <div class="d-flex align-items-center mb-3 pb-1">
+                      <i class="fas fa-tasks fa-3x mr-2" style="color: #55acee"></i>
+                      <span class="h1 fw-bold mb-0">Appointments</span>
+                    </div>
+
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
+                      Manage Appointments
+                    </h5>
+
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Patient Name</th>
+                          <th>Patient Mobile Number</th>
+                          <th>Doctor</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $select_appointments = $conn->prepare("SELECT * FROM `appointment`");
+                        $select_appointments->execute();
+                        while ($row = $select_appointments->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                          <tr>
+                            <td><?= $row['id']; ?></td>
+                            <td><?= $row['PatientName']; ?></td>
+                            <td><?= $row['PatientMobileNumber']; ?></td>
+                            <td><?= $row['Doctor']; ?></td>
+                            <td>
+                              <form method="POST" action="">
+                                <input type="hidden" name="user_id" value="<?= $row['id']; ?>">
+                                <button type="submit" name="delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this appointment?')">Delete</button>
+                              </form>
+                            </td>
+                          </tr>
+                        <?php
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <script src="../js/admin.js"></script>

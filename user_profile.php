@@ -62,8 +62,8 @@ if (isset($_SESSION['user_id'])) {
 
           <div class="col-6 mx-2 shadow-lg p-3 mb-5 bg-body rounded profile_box">
             <?php
-            $select_appointments = $conn->prepare("SELECT * FROM `appointment`");
-            $select_appointments->execute();
+            $select_appointments = $conn->prepare("SELECT * FROM `appointment` WHERE user_id = ?");
+            $select_appointments->execute([$user_id]);
             $number_of_appointments = $select_appointments->rowCount()
             ?>
             <p class="fs-3"><?= $number_of_appointments; ?></p>
@@ -76,8 +76,8 @@ if (isset($_SESSION['user_id'])) {
         <div class="row my-4 d-flex justify-content-center">
           <div class=" col-12 mx-2 shadow-lg p-3 mb-5 bg-body rounded profile_box ">
             <?php
-            $select_appointments = $conn->prepare("SELECT * FROM `appointment`");
-            $select_appointments->execute();
+            $select_appointments = $conn->prepare("SELECT * FROM `appointment` WHERE user_id = ?");
+            $select_appointments->execute([$user_id]);
             $number_of_appointments = $select_appointments->rowCount()
             ?>
             <p class="fs-3"><?= $number_of_appointments; ?></p>
