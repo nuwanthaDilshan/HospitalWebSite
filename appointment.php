@@ -2,20 +2,33 @@
 
 include "./components/connect.php";
 
-if (isset($_POST['Add'])) {
+session_start();
 
-  $PatientName = $_POST['PatientName'];
-  $PatientMobileNumber = $_POST['PatientMobileNumber'];
+if (isset($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+} else {
+  $user_id = '';
+};
+
+if (isset($_POST['submit'])) {
+
+  $name = $_POST['PatientName'];
+  $name = filter_var($name, FILTER_SANITIZE_STRING);
+  $MobileNumber = $_POST['PatientMobileNumber'];
+  $MobileNumber = filter_var($MobileNumber, FILTER_SANITIZE_STRING);
   $Doctor = $_POST['Doctor'];
+  $Doctor = filter_var($Doctor, FILTER_SANITIZE_STRING);
 
+  $select_user = $conn->prepare("SELECT * FROM `appointment` WHERE Doctor = ?");
+  $select_user->execute([$Doctor,]);
+  $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
-  $query = "INSERT INTO `appointment`(`PatientName`, `PatientMobileNumber`, `Doctor`) VALUES ('$PatientName','$PatientMobileNumber','$Doctor')";
-  $query_run = mysqli_query($connection, $query);
-
-  if ($query_run) {
-    header('Location: appointment.php');
+  if ($select_user->rowCount() > 0) {
+    $message[] = 'Doctor already exists!';
   } else {
-    echo '<script type="text/javascript"> alert("Data not Added")</script>';
+    $insert_user = $conn->prepare("INSERT INTO `appointment`(PatientName, PatientMobileNumber, Doctor) VALUES(?,?,?)");
+    $insert_user->execute([$name, $MobileNumber, $Doctor]);
+    $message[] = 'registered successfully, login now please!';
   }
 }
 ?>
@@ -29,12 +42,12 @@ if (isset($_POST['Add'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- link bootstrap -->
 
-  <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="Bootstrap/css/bootstrap.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
   <!-- link font awesome -->
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
 
   <!-- link css -->
 
@@ -46,13 +59,9 @@ if (isset($_POST['Add'])) {
 <body>
   <?php
 
-  include "./components/navbar.php"
+  include "./components/userheader.php"
 
   ?>
-
-  <br />
-  <br />
-
   <section class="vh-200" style="background-color: #0489b1">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -72,25 +81,24 @@ if (isset($_POST['Add'])) {
                     </h5>
 
                     <div class="form-outline mb-4">
-                      <input type="text" name="PatientName" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Name" />
+                      <input type="text" name="PatientName" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Name" value="<?= $fetch_profile["Name"]; ?>" />
                       <label class="form-label" for="form2Example17">Patient Name</label>
                     </div>
                     <div class="form-outline mb-4">
-                      <input type="text" name="PatientMobileNumber" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Mobile Number" />
+                      <input type="text" name="PatientMobileNumber" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Mobile Number" value="<?= $fetch_profile["MobileNumber"]; ?>" />
                       <label class="form-label" for="form2Example17">Patient Mobile Number</label>
                     </div>
                     <div class="form-outline mb-4">
-                      <input type="text" name="Doctor" id="form2Example27" class="form-control form-control-lg" placeholder=" Enter Doctor Name" />
+                      <input type="text" name="Doctor" required="" class="form-control form-control-lg" placeholder=" Enter Doctor Name" />
                       <label class="form-label" for="form2Example27">Doctor</label>
                     </div>
 
                     <div class="pt-1 mb-3 text-center">
-                      <button class="btn btn-info pr-5 pl-5" name="Add" type="submit">
-                        Create
-                      </button>
-
-                      <br />
-                      <a href="login.html" class="nav-link btn-lg" style="color: #55acee;"><i class="fas fa-hand-point-left" style="color: #55acee;"></i> <span>Back</span></a>
+                      <div class="d-flex justify-content-center">
+                        <div class="mt-3">
+                          <input type="submit" value="Make Appointment" class="btn main-btn btn-lg btn-block" name="submit">
+                        </div>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -103,15 +111,19 @@ if (isset($_POST['Add'])) {
   </section>
 
   <!-- footer -->
+
   <?php
 
   include "./components/footer.php"
 
   ?>
 
-  <!-- link bootstrap js -->
   <script src="./js/script.js"></script>
-  
+
+  <!-- link bootstrap js -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

@@ -86,7 +86,7 @@ function filterTable($query)
                   <form class="mx-2 my-auto w-100" action="clinicDetails.php" method="post">
                     <div class="d-flex justify-content-center my-3">
                       <input class="form-control mr-sm-2 mx-3" type="text" name="searchdetails" placeholder=" Search Details">
-                      <input class="btn btn-info float-right my-2 my-sm-0 " type="submit" name="search" value="Search">
+                      <input class="btn main-btn btn-size float-right my-2 my-sm-0 " type="submit" name="search" value="Search">
                     </div>
 
                     <table>

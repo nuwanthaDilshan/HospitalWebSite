@@ -1,7 +1,12 @@
 <?php
 
-$connection = mysqli_connect("127.0.0.1", "root", "");
-$db = mysqli_select_db($connection, 'hospital');
+include "../components/connect.php";
+
+session_start();
+
+$admin_id = $_SESSION['admin_id'];
+
+
 
 if (isset($_POST['Update'])) {
   $EmailAddress = $_POST['EmailAddress'];
@@ -59,8 +64,8 @@ if (isset($_POST['Add'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- link bootstrap -->
 
-  <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="Bootstrap/css/bootstrap.css" />
+  c<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 
   <!-- link font awesome -->
 
@@ -68,52 +73,15 @@ if (isset($_POST['Add'])) {
 
   <!-- link css -->
 
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
 
   <title>NSACP HOSPITAL</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.html">
-      <img src="Images/logo.jpg" width="50px" height="30px" class="d-inline-block align-top" alt="" />
-      NSACP
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link text-info font-weight-bold" href="index.html">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="services.html">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="adminLogin.html">Admin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="doctorLogin.html">Doctor</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contactUs.html">Contact Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="aboutUs.html">About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ml-4" href="login.html">Sign In</a>
-        </li>
-        <li class="nav-item" style="color: Warning">
-          <a class="nav-link btn btn-info pl-4 pr-4 btn-sm" href="register.html">Join</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-  <br />
-  <br />
+<?php
+include "../components/admin_header.php";
+?>
 
   <section class="vh-200" style="background-color: #0489b1">
     <div class="container py-5 h-100">
@@ -161,8 +129,8 @@ if (isset($_POST['Add'])) {
                         Delete
                       </button>
                       <a href="adminPatientView.php" class="btn btn-info pr-5 pl-5" name="View">
-                          View
-                        </a>
+                        View
+                      </a>
                       <br />
                       <a href="admin.html" class="nav-link btn-lg" style="color: #55acee;"><i class="fas fa-hand-point-left" style="color: #55acee;"></i> <span>Back</span></a>
                     </div>
@@ -214,12 +182,12 @@ if (isset($_POST['Add'])) {
     </footer>
   </section>
 
+
+  <script src="./js/admin.js"></script>
+
   <!-- link bootstrap js -->
 
-  <script src="Bootstrap/js/bootstrap.js"></script>
-  <script src="Bootstrap/js/jquery.min.js"></script>
-  <script src="Bootstrap/js/popper.min.js"></script>
-  <script src="Bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

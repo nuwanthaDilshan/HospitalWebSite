@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
                       <div class="">
                         <p class="" style="color: #55acee">
                           have an account?
-                          <a href="login.html" style="color: #55acee">Login here</a>
+                          <a href="login.php" style="color: #55acee">Login here</a>
                         </p>
                         <a href="#!" class="small text-muted">Terms of use.</a>
                         <a href="#!" class="small text-muted">Privacy policy</a>

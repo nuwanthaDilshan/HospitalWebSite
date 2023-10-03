@@ -44,10 +44,6 @@ if (isset($_SESSION['user_id'])) {
   include "./components/userheader.php"
 
   ?>
-
-  <br />
-  <br />
-
   <!-- home -->
 
   <div>

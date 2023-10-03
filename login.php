@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
                                         <div class="text-center align-items-center">
                                             <p class="" style="color: #55acee">
                                                 Don't have an account?
-                                                <a href="register.html" style="color: #55acee">Register here</a>
+                                                <a href="register.php" style="color: #55acee">Register here</a>
                                             </p>
                                             <a href="#!" class="small text-muted">Terms of use.</a>
                                             <a href="#!" class="small text-muted">Privacy policy</a>

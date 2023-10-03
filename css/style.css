@@ -244,6 +244,24 @@ p {
   padding-bottom: 20px;
 }
 
+
+/* admin panel*/
+
+.box{
+   width: 30%;
+}
+
+/* user profile */
+
+.profile_box{
+   width: 45%;
+}
+
+
+
+
+
+
 /* media query */
 
 @media (max-width: 700px) {
