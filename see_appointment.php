@@ -54,7 +54,7 @@ if (isset($_GET['delete'])) {
 
 
 
-  <section class="dashboard">
+  <section class="dashboard" style="background-color: #0489b1">
 
     <div class="container">
       <div class="d-flex justify-content-center">
