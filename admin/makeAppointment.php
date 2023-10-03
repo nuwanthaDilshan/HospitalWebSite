@@ -108,9 +108,6 @@ if (isset($_POST['submit'])) {
       </div>
     </div>
   </section>
-
- 
-
   <script src="../js/admin.js"></script>
 
   <!-- link bootstrap js -->

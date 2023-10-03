@@ -77,7 +77,7 @@ if (!isset($admin_id)) {
             ?>
             <p class="fs-3"><?= $number_of_products; ?></p>
             <p class="fs-5">Clinic Detail</p>
-            <a href="products.php" class="option-btn">See Clinic Detail</a>
+            <a href="clinicDetail.php" class="option-btn">See Clinic Detail</a>
           </div>
 
         </div>
