@@ -66,7 +66,7 @@ if (!isset($admin_id)) {
             ?>
             <p class="fs-3"><?= $number_of_orders; ?></p>
             <p class="fs-5">Appointment</p>
-            <a href="placed_orders.php" class="option-btn">See Appointmet</a>
+            <a href="appointment.php" class="option-btn">See Appointmet</a>
           </div>
 
           <div class="col-4 mx-2 shadow-lg p-3 mb-5 bg-body rounded box">

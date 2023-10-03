@@ -19,7 +19,7 @@ if (isset($message)) {
 
     <nav class="navbar">
       <a href="../admin/admin.php">Home</a>
-      <a href="#">Appointments</a>
+      <a href="../admin/appointment.php">Appointments</a>
       <a href="#">Clinic Detail</a>
       <a href="#">Normal Users</a>
       <a href="#">Admin Users</a>
@@ -27,8 +27,8 @@ if (isset($message)) {
     </nav>
 
     <div class="icons">
-      <div id="menu-btn" class="fas fa-bars"></div>
-      <div id="user-btn" class="fas fa-user"></div>
+      <div id="menu-btn" class="fas fa-bars py-2"></div>
+      <div id="user-btn" class="fas fa-user py-2"></div>
     </div>
 
     <div class="profile">

@@ -39,8 +39,8 @@ if (isset($_POST['submit'])) {
     $message[] = 'confirm password not matched!';
   } else {
     if ($new_pass != $empty_pass) {
-      $update_admin_pass = $conn->prepare("UPDATE `users` SET Password = ? WHERE id = ?");
-      $update_admin_pass->execute([$cpass, $user_id]);
+      $update_user_pass = $conn->prepare("UPDATE `users` SET Password = ? WHERE id = ?");
+      $update_user_pass->execute([$cpass, $user_id]);
       $message[] = 'password updated successfully!';
     } else {
       $message[] = 'please enter a new password!';

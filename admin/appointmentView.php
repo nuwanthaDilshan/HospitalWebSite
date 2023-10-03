@@ -1,20 +1,20 @@
 <?php
 
-include './components/connect.php';
+include '../components/connect.php';
 
 session_start();
 
-if (isset($_SESSION['user_id'])) {
-  $user_id = $_SESSION['user_id'];
-} else {
-  $user_id = '';
-};
+$admin_id = $_SESSION['admin_id'];
+
+if (!isset($admin_id)) {
+  header('location:adminLogin.php');
+}
 
 if (isset($_GET['delete'])) {
   $delete_id = $_GET['delete'];
   $delete_appointment = $conn->prepare("DELETE FROM `appointment` WHERE id = ?");
   $delete_appointment->execute([$delete_id]);
-  header('location:see_appointment.php');
+  header('location:appointmentView.php');
 }
 
 ?>
@@ -38,7 +38,7 @@ if (isset($_GET['delete'])) {
 
   <!-- link css -->
 
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
 
   <title>NSACP HOSPITAL</title>
 </head>
@@ -48,7 +48,7 @@ if (isset($_GET['delete'])) {
 
   <?php
 
-  include "./components/userheader.php"
+  include "../components/admin_header.php"
 
   ?>
 
@@ -78,7 +78,7 @@ if (isset($_GET['delete'])) {
             <p> Doctor : <span><?= $fetch_appointments['Doctor']; ?></span> </p>
             <form action="" method="post">
               <div class="flex-btn">
-                <a href="see_appointment.php?delete=<?= $fetch_appointments['id']; ?>" class="delete-btn" onclick="return confirm('delete this appointment?');">delete</a>
+                <a href="appointmentView.php?delete=<?= $fetch_appointments['id']; ?>" class="delete-btn" onclick="return confirm('delete this appointment?');">delete</a>
               </div>
             </form>
           </div>
@@ -91,22 +91,14 @@ if (isset($_GET['delete'])) {
 
       <?php
       if ($counter == 0) {
-        echo '<p class="empty">no appointments placed yet!</p>';
+        echo '<p class="empty">no orders placed yet!</p>';
       }
       ?>
     </div>
 
   </section>
 
-  <!-- footer -->
-
-  <?php
-
-  include "./components/footer.php"
-
-  ?>
-
-  <script src="./js/script.js"></script>
+  <script src="../js/admin.js"></script>
 
   <!-- link bootstrap js -->
 
