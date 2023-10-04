@@ -1,29 +1,44 @@
 <?php
 
-include "../components/connect.php";
+include '../components/connect.php';
 
 session_start();
 
+$admin_id = $_SESSION['admin_id'];
+
+if (!isset($admin_id)) {
+  header('location:adminLogin.php');
+}
+
 if (isset($_POST['submit'])) {
 
-  $name = $_POST['name'];
+  $name = $_POST['Name'];
   $name = filter_var($name, FILTER_SANITIZE_STRING);
   $pass = sha1($_POST['pass']);
   $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+  $cpass = sha1($_POST['cpass']);
+  $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
 
-  $select_admin = $conn->prepare("SELECT * FROM `admins` WHERE name = ? AND Password = ?");
-  $select_admin->execute([$name, $pass]);
-  $row = $select_admin->fetch(PDO::FETCH_ASSOC);
+  $select_admins = $conn->prepare("SELECT * FROM `admins` WHERE name = ?");
+  $select_admins->execute([$name,]);
+  $row = $select_admins->fetch(PDO::FETCH_ASSOC);
 
-  if ($select_admin->rowCount() > 0) {
-    $_SESSION['admin_id'] = $row['id'];
-    header('location:./admin.php');
+  if ($select_admins->rowCount() > 0) {
+    $message[] = 'already exists!';
   } else {
-    $message[] = 'incorrect username or password!';
+    if ($pass != $cpass) {
+      $message[] = 'confirm password not matched!';
+    } else {
+      $insert_admins = $conn->prepare("INSERT INTO `admins`(Name, Password) VALUES(?,?)");
+      $insert_admins->execute([$name, $cpass]);
+      $message[] = 'added successfully';
+    }
   }
 }
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,21 +64,14 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
+  <!-- navigation bar -->
 
   <?php
-  if (isset($message)) {
-    foreach ($message as $message) {
-      echo '
-         <div class="message">
-            <span>' . $message . '</span>
-            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-         </div>
-         ';
-    }
-  }
+
+  include "../components/admin_header.php";
   ?>
 
-  <section class="vh-100" style="background-color: #0489b1">
+  <section class="vh-1000" style="background-color: #0489b1">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-xl-10">
@@ -71,34 +79,37 @@ if (isset($_POST['submit'])) {
             <div class="row g-0">
               <div class="col-md-3 col-lg-12 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
-                  <form action="" method="POST">
+                  <form method="POST" action="">
                     <div class="d-flex align-items-center mb-3 pb-1">
-                      <i class="fas fa-cubes fa-2x me-3" style="color: #55acee"></i>
-                      <span class="h1 fw-bold mb-0">Admin Login</span>
+                      <i class="fas fa-id-badge"></i>
+                      <span class="h1 fw-bold mb-0">Add Admin User</span>
                     </div>
 
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
-                      Sign into Admin
-                    </h5>
-
                     <div class="form-outline mb-4">
-                      <input type="text" name="name" required="" class="form-control form-control-lg" placeholder="Enter your Name" />
+                      <input type="text" name="Name" id="form2Example17" placeholder="Enter your name" required="" class="form-control form-control-lg" />
                       <label class="form-label" for="form2Example17">Name</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input type="password" name="pass" id="form2Example27" required="" class="form-control form-control-lg" placeholder="Enter password" />
+                      <input type="password" name="pass" placeholder="Enter password" required="" class="form-control form-control-lg" />
                       <label class="form-label" for="form2Example27">Password</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="password" name="cpass" placeholder="Enter confirm password" required="" class="form-control form-control-lg" />
+                      <label class="form-label" for="form2Example27">Confirm Password</label>
                     </div>
 
                     <div class="d-flex justify-content-center">
                       <div class="mt-3">
-                        <input type="submit" value="login now" class="btn main-btn btn-lg btn-block" name="submit">
+                        <input type="submit" value="Add Now" class="btn main-btn btn-lg btn-block" name="submit">
                       </div>
                     </div>
-                    <div class="text-center align-items-center">
-                      <a href="#!" class="small text-muted">Terms of use.</a>
-                      <a href="#!" class="small text-muted">Privacy policy</a>
+                    <div class="text-center align-items-center ">
+                      <div class="">
+                        <a href="#!" class="small text-muted">Terms of use.</a>
+                        <a href="#!" class="small text-muted">Privacy policy</a>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -113,8 +124,8 @@ if (isset($_POST['submit'])) {
   <script src="../js/admin.js"></script>
 
   <!-- link bootstrap js -->
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

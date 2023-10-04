@@ -47,7 +47,7 @@ if (!isset($admin_id)) {
 
     <div class="container">
       <div class="d-flex justify-content-center">
-        <p class="text-uppercase fs-1 fw-bolder my-3">dashboard.</p>
+        <p class="text-uppercase fs-1 fw-bolder my-3">Admin dashboard.</p>
       </div>
 
       <div class="continer text-center align-items-center">
@@ -60,22 +60,22 @@ if (!isset($admin_id)) {
 
           <div class="col-4 mx-2 shadow-lg p-3 mb-5 bg-body rounded box">
             <?php
-            $select_orders = $conn->prepare("SELECT * FROM `appointment`");
-            $select_orders->execute();
-            $number_of_orders = $select_orders->rowCount()
+            $select_appointment = $conn->prepare("SELECT * FROM `appointment`");
+            $select_appointment->execute();
+            $number_of_appointment = $select_appointment->rowCount()
             ?>
-            <p class="fs-3"><?= $number_of_orders; ?></p>
+            <p class="fs-3"><?= $number_of_appointment; ?></p>
             <p class="fs-5">Appointment</p>
             <a href="appointment.php" class="option-btn">See Appointmet</a>
           </div>
 
           <div class="col-4 mx-2 shadow-lg p-3 mb-5 bg-body rounded box">
             <?php
-            $select_products = $conn->prepare("SELECT * FROM `clinicdetail`");
-            $select_products->execute();
-            $number_of_products = $select_products->rowCount()
+            $select_clinicdetail = $conn->prepare("SELECT * FROM `clinicdetail`");
+            $select_clinicdetail->execute();
+            $number_of_clinicdetail = $select_clinicdetail->rowCount()
             ?>
-            <p class="fs-3"><?= $number_of_products; ?></p>
+            <p class="fs-3"><?= $number_of_clinicdetail; ?></p>
             <p class="fs-5">Clinic Detail</p>
             <a href="clinicDetail.php" class="option-btn">See Clinic Detail</a>
           </div>
@@ -91,7 +91,7 @@ if (!isset($admin_id)) {
             ?>
             <p class="fs-3"><?= $number_of_users; ?></p>
             <p class="fs-5">Normal Users</p>
-            <a href="users_accounts.php" class="option-btn">See Users</a>
+            <a href="normalUser.php" class="option-btn">See Users</a>
           </div>
 
           <div class="col-4 mx-2 shadow-lg p-3 mb-5 bg-body rounded box">
@@ -102,7 +102,7 @@ if (!isset($admin_id)) {
             ?>
             <p class="fs-3"><?= $number_of_admins; ?></p>
             <p class="fs-5">Admin Users</p>
-            <a href="admin_accounts.php" class="option-btn">See Admins</a>
+            <a href="adminUsers.php" class="option-btn">See Admins</a>
           </div>
 
           <div class="col-4 mx-2 shadow-lg p-3 mb-5 bg-body rounded box">
@@ -113,14 +113,25 @@ if (!isset($admin_id)) {
             ?>
             <p class="fs-3"><?= $number_of_messages; ?></p>
             <p class="fs-5">New Messages</p>
-            <a href="messages.php" class="option-btn">See Messages</a>
+            <a href="message.php" class="option-btn">See Messages</a>
+          </div>
+
+          <div class="continer text-center align-items-center">
+            <div class="d-flex justify-content-center">
+              <div class="mx-2 shadow-lg p-3 bg-body rounded profile_box">
+                <?php
+                $select_doctor = $conn->prepare("SELECT * FROM `doctor`");
+                $select_doctor->execute();
+                $number_of_doctor = $select_users->rowCount()
+                ?>
+                <p class="fs-3"><?= $number_of_doctor; ?></p>
+                <p class="fs-5">Add Doctor</p>
+                <a href="doctor.php" class="option-btn">Add Doctor</a>
+              </div>
+            </div>
           </div>
         </div>
-
-
       </div>
-    </div>
-
   </section>
 
   <script src="../js/admin.js"></script>

@@ -1,77 +1,42 @@
 <?php
-
 include "./components/connect.php";
-
 session_start();
 
 if (isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
 } else {
   $user_id = '';
-};
+}
 
-
-// if (isset($_POST['search'])) {
-//   $valueToSearch = $_POST['searchdetails'];
-//   // search in all table columns
-//   // using concat mysql function
-//   $query = "SELECT * FROM `clinicdetail` WHERE  CONCAT(`No`,`Disease`,`Doctor`,`Treatment`,`Testing`) LIKE '%" . $valueToSearch . "%'";
-//   $search_result = filterTable($query);
-// } else {
-//   $query = "SELECT * FROM `clinicdetail` WHERE 1";
-//   $search_result = filterTable($query);
-// }
-
-// // function to connect and execute the query
-// function filterTable($query)
-// {
-//   $connect = mysqli_connect("127.0.0.1", "root", "", "hospital");
-//   $filter_Result = mysqli_query($connect, $query);
-//   return $filter_Result;
-// }
-
+if (isset($_POST['search'])) {
+  $valueToSearch = $_POST['searchdetails'];
+  // search in all table columns
+  // using concat mysql function
+  $query = "SELECT * FROM `clinicdetail` WHERE CONCAT(`Disease`, `Treatment`, `Testing`, `Doctor`, `Day`, `Time`) LIKE '%" . $valueToSearch . "%'";
+  $search_result = $conn->prepare($query);
+  $search_result->execute();
+} else {
+  $query = "SELECT * FROM `clinicdetail`";
+  $search_result = $conn->prepare($query);
+  $search_result->execute();
+}
 ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-
   <!-- link bootstrap -->
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-
   <!-- link font awesome -->
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-
   <!-- link css -->
-
   <link rel="stylesheet" href="css/style.css">
-
   <title>NSACP HOSPITAL</title>
-
-  <style>
-    table,
-    tr,
-    th,
-    td {
-      margin: auto;
-      border: 1px solid black;
-    }
-  </style>
 </head>
 
 <body>
-
-  <?php
-
-  include "./components/userheader.php"
-
-  ?>
-
-
+  <?php include "./components/userheader.php" ?>
 
   <section class="vh-1000" style="background-color: #0489b1">
     <div class="container py-5 h-100">
@@ -86,6 +51,18 @@ if (isset($_SESSION['user_id'])) {
                       <i class="fas fa-tasks fa-3x mr-2" style="color: #55acee"></i>
                       <span class="h1 fw-bold mb-0">Clinic Detail</span>
                     </div>
+                    <!-- Search form -->
+                    <div class="d-flex my-4" role="search">
+                      <div class="row">
+                        <div class="col-11">
+                          <input class="form-control " type="search" placeholder="Search" name="searchdetails" aria-label="Search">
+                        </div>
+                        <div class="col-1">
+                          <button class="btn search-btn" type="submit" name="search">Search</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of search form -->
                     <table class="table table-bordered table-hover">
                       <thead>
                         <tr>
@@ -99,9 +76,7 @@ if (isset($_SESSION['user_id'])) {
                       </thead>
                       <tbody>
                         <?php
-                        $select_appointments = $conn->prepare("SELECT * FROM `clinicdetail`");
-                        $select_appointments->execute();
-                        while ($row = $select_appointments->fetch(PDO::FETCH_ASSOC)) {
+                        while ($row = $search_result->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                           <tr>
                             <td><?= $row['Disease']; ?></td>
@@ -126,21 +101,12 @@ if (isset($_SESSION['user_id'])) {
     </div>
   </section>
 
-
-  <?php
-
-  include "./components/footer.php"
-
-  ?>
+  <?php include "./components/footer.php" ?>
 
   <script src="./js/script.js"></script>
 
-
   <!-- link bootstrap js -->
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-
 </body>
 
 </html>

@@ -11,10 +11,10 @@ if (!isset($admin_id)) {
 }
 
 if (isset($_POST['delete'])) {
-  $user_id = $_POST['user_id'];
-  $delete_user = $conn->prepare("DELETE FROM `clinicdetail` WHERE No = ?");
-  $delete_user->execute([$user_id]);
-  $message[] = 'User deleted successfully!';
+  $clinicdetail_id = $_POST['clinicdetail_id'];
+  $delete_clinicdetail = $conn->prepare("DELETE FROM `clinicdetail` WHERE No = ?");
+  $delete_clinicdetail->execute([$clinicdetail_id]);
+  $message[] = 'clinic detail deleted successfully!';
 }
 
 ?>
@@ -54,20 +54,20 @@ if (isset($_POST['delete'])) {
 
     <div class="container">
       <div class="d-flex justify-content-center">
-        <p class="text-uppercase fs-1 fw-bolder my-3">Manage Users</p>
+        <p class="text-uppercase fs-1 fw-bolder my-3">Manage Clinic details</p>
       </div>
 
       <div class="continer text-center align-items-center">
         <div class="d-flex justify-content-center">
           <div class="mx-2 shadow-lg p-3 bg-body rounded profile_box">
             <?php
-            $select_appointments = $conn->prepare("SELECT * FROM `clinicdetail`");
-            $select_appointments->execute();
-            $number_of_appointments = $select_appointments->rowCount()
+            $select_clinicdetail = $conn->prepare("SELECT * FROM `clinicdetail`");
+            $select_clinicdetail->execute();
+            $number_of_clinicdetail = $select_clinicdetail->rowCount()
             ?>
-            <p class="fs-3"><?= $number_of_appointments; ?></p>
+            <p class="fs-3"><?= $number_of_clinicdetail; ?></p>
             <p class="fs-5">Add Clinic Detail</p>
-            <a href="#" class="option-btn">Add Clinic Detail</a>
+            <a href="addClinicdetail.php" class="option-btn">Add Clinic Detail</a>
           </div>
         </div>
       </div>
@@ -102,9 +102,9 @@ if (isset($_POST['delete'])) {
                       </thead>
                       <tbody>
                         <?php
-                        $select_appointments = $conn->prepare("SELECT * FROM `clinicdetail`");
-                        $select_appointments->execute();
-                        while ($row = $select_appointments->fetch(PDO::FETCH_ASSOC)) {
+                        $select_clinicdetail = $conn->prepare("SELECT * FROM `clinicdetail`");
+                        $select_clinicdetail->execute();
+                        while ($row = $select_clinicdetail->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                           <tr>
                             <td><?= $row['Disease']; ?></td>
@@ -115,7 +115,7 @@ if (isset($_POST['delete'])) {
                             <td><?= $row['Time']; ?></td>
                             <td>
                               <form method="POST" action="">
-                                <input type="hidden" name="user_id" value="<?= $row['No']; ?>">
+                                <input type="hidden" name="clinicdetail_id" value="<?= $row['No']; ?>">
                                 <button type="submit" name="delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this appointment?')">Delete</button>
                               </form>
                             </td>

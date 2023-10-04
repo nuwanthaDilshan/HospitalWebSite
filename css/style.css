@@ -186,6 +186,16 @@ p {
 
 }
 
+.search-btn{
+   width: 150px;
+   color: var(--white);
+   background-color: var(--main-color);
+}
+.search-btn:hover{
+   color: var(--white);
+   background-color: var(--black);
+}
+
 /* messages */
 
 .message{

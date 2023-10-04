@@ -21,9 +21,10 @@ if (isset($message)) {
       <a href="../admin/admin.php">Home</a>
       <a href="../admin/appointment.php">Appointments</a>
       <a href="../admin/clinicDetail.php">Clinic Detail</a>
-      <a href="#">Normal Users</a>
-      <a href="#">Admin Users</a>
-      <a href="#">Messages</a>
+      <a href="../admin/normalUser.php">Normal Users</a>
+      <a href="../admin/adminUsers.php">Admin Users</a>
+      <a href="../admin/doctor.php">Doctor Users</a>
+      <a href="../admin/message.php">Messages</a>
     </nav>
 
     <div class="icons">

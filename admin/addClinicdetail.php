@@ -12,23 +12,29 @@ if (!isset($admin_id)) {
 
 if (isset($_POST['submit'])) {
 
-  $name = $_POST['PatientName'];
+  $name = $_POST['Disease'];
   $name = filter_var($name, FILTER_SANITIZE_STRING);
-  $MobileNumber = $_POST['PatientMobileNumber'];
-  $MobileNumber = filter_var($MobileNumber, FILTER_SANITIZE_STRING);
+  $Treatment = $_POST['Treatment'];
+  $Treatment = filter_var($Treatment, FILTER_SANITIZE_STRING);
+  $Testing = $_POST['Testing'];
+  $Testing = filter_var($Testing, FILTER_SANITIZE_STRING);
   $Doctor = $_POST['Doctor'];
   $Doctor = filter_var($Doctor, FILTER_SANITIZE_STRING);
+  $Day = $_POST['Day'];
+  $Day = filter_var($Day, FILTER_SANITIZE_STRING);
+  $Time = $_POST['Time'];
+  $Time = filter_var($Time, FILTER_SANITIZE_STRING);
 
-  $select_user = $conn->prepare("SELECT * FROM `appointment` WHERE PatientName = ? AND PatientMobileNumber = ? AND Doctor = ? ");
-  $select_user->execute([$name, $MobileNumber, $Doctor]);
-  $row = $select_user->fetch(PDO::FETCH_ASSOC);
+  $select_clinicdetail = $conn->prepare("SELECT * FROM `clinicdetail` WHERE Disease = ? AND Treatment = ? AND Testing = ? AND Doctor = ? AND Day = ? AND Time = ? ");
+  $select_clinicdetail->execute([$name, $Treatment, $Testing, $Doctor, $Day, $Time]);
+  $row = $select_clinicdetail->fetch(PDO::FETCH_ASSOC);
 
-  if ($select_user->rowCount() > 0) {
-    $message[] = 'Doctor already exists!';
+  if ($select_clinicdetail->rowCount() > 0) {
+    $message[] = 'already exists!';
   } else {
-    $insert_user = $conn->prepare("INSERT INTO `appointment`(PatientName, PatientMobileNumber, Doctor) VALUES(?,?,?)");
-    $insert_user->execute([$name, $MobileNumber, $Doctor]);
-    $message[] = 'Appointment made successfully!';
+    $insert_clinicdetail = $conn->prepare("INSERT INTO `clinicdetail`(Disease, Treatment, Testing, Doctor, Day, Time) VALUES(?,?,?,?,?,?)");
+    $insert_clinicdetail->execute([$name, $Treatment, $Testing, $Doctor, $Day, $Time]);
+    $message[] = 'clinic detail add successfully!';
   }
 }
 ?>
@@ -73,21 +79,32 @@ if (isset($_POST['submit'])) {
                   <form action="" method="POST">
                     <div class="d-flex align-items-center mb-3 pb-1">
                       <i class="fas fa-tasks fa-3x mr-2" style="color: #55acee"></i>
-                      <span class="h1 fw-bold mb-0">Appointment</span>
+                      <span class="h1 fw-bold mb-0">Clinic Details</span>
                     </div>
                     <div class="form-outline mb-4">
-                      <input type="text" name="PatientName" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Name" />
-                      <label class="form-label" for="form2Example17">Patient Name</label>
+                      <input type="text" name="Disease" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Disease" />
+                      <label class="form-label" for="form2Example17">Disease</label>
                     </div>
                     <div class="form-outline mb-4">
-                      <input type="text" name="PatientMobileNumber" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Mobile Number" />
-                      <label class="form-label" for="form2Example17">Patient Mobile Number</label>
+                      <input type="text" name="Treatment" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Treatment" />
+                      <label class="form-label" for="form2Example17">Treatment</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input type="text" name="Testing" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Testing" />
+                      <label class="form-label" for="form2Example17">Testing</label>
                     </div>
                     <div class="form-outline mb-4">
                       <input type="text" name="Doctor" required="" class="form-control form-control-lg" placeholder=" Enter Doctor Name" />
                       <label class="form-label" for="form2Example27">Doctor</label>
                     </div>
-
+                    <div class="form-outline mb-4">
+                      <input type="text" name="Day" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Day" />
+                      <label class="form-label" for="form2Example17">Day</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input type="text" name="Time" id="form2Example17" class="form-control form-control-lg" required="" placeholder="Enter Time" />
+                      <label class="form-label" for="form2Example17">Time</label>
+                    </div>
                     <div class="pt-1 mb-3 text-center">
                       <div class="d-flex justify-content-center">
                         <div class="mt-3">

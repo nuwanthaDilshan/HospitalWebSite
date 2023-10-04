@@ -24,11 +24,11 @@ if (isset($_POST['submit'])) {
   $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
   if ($select_user->rowCount() > 0) {
-    $message[] = 'Doctor already exists!';
+    $message[] = 'appointment already exists!';
   } else {
     $insert_user = $conn->prepare("INSERT INTO `appointment`(user_id, PatientName, PatientMobileNumber, Doctor) VALUES(?,?,?,?)");
     $insert_user->execute([$user_id, $name, $MobileNumber, $Doctor]);
-    $message[] = 'registered successfully, login now please!';
+    $message[] = 'appointment successfully';
   }
 }
 ?>

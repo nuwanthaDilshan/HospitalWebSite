@@ -11,10 +11,10 @@ if (!isset($admin_id)) {
 }
 
 if (isset($_POST['delete'])) {
-  $user_id = $_POST['user_id'];
-  $delete_user = $conn->prepare("DELETE FROM `appointment` WHERE id = ?");
-  $delete_user->execute([$user_id]);
-  $message[] = 'User deleted successfully!';
+  $admins_id = $_POST['admin_id'];
+  $delete_admin = $conn->prepare("DELETE FROM `admins` WHERE id = ?");
+  $delete_admin->execute([$admins_id]);
+  $message[] = 'admin deleted successfully!';
 }
 
 ?>
@@ -54,20 +54,20 @@ if (isset($_POST['delete'])) {
 
     <div class="container">
       <div class="d-flex justify-content-center">
-        <p class="text-uppercase fs-1 fw-bolder my-3">Manage Appointments</p>
+        <p class="text-uppercase fs-1 fw-bolder my-3">Manage Admins</p>
       </div>
 
       <div class="continer text-center align-items-center">
         <div class="d-flex justify-content-center">
           <div class="mx-2 shadow-lg p-3 bg-body rounded profile_box">
             <?php
-            $select_appointments = $conn->prepare("SELECT * FROM `appointment`");
-            $select_appointments->execute();
-            $number_of_appointments = $select_appointments->rowCount()
+            $select_admin = $conn->prepare("SELECT * FROM `admins`");
+            $select_admin->execute();
+            $number_of_admin = $select_admin->rowCount()
             ?>
-            <p class="fs-3"><?= $number_of_appointments; ?></p>
-            <p class="fs-5">Make Appointment</p>
-            <a href="makeAppointment.php" class="option-btn">Make Appointmet</a>
+            <p class="fs-3"><?= $number_of_admin; ?></p>
+            <p class="fs-5">Add admin</p>
+            <a href="addAdminUsers.php" class="option-btn">Add admin</a>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@ if (isset($_POST['delete'])) {
 
   </section>
 
-  <section class="vh-200" style="background-color: #0489b1">
+  <section class="vh-1000" style="background-color: #0489b1">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-xl-10">
@@ -86,35 +86,28 @@ if (isset($_POST['delete'])) {
                   <form action="" method="POST">
                     <div class="d-flex align-items-center mb-3 pb-1">
                       <i class="fas fa-tasks fa-3x mr-2" style="color: #55acee"></i>
-                      <span class="h1 fw-bold mb-0">Appointments</span>
+                      <span class="h1 fw-bold mb-0">Admins Detail</span>
                     </div>
-
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
-                      Manage Appointments
-                    </h5>
-
                     <table class="table table-bordered table-hover">
                       <thead>
                         <tr>
-                          <th>Patient Name</th>
-                          <th>Patient Mobile Number</th>
-                          <th>Doctor</th>
+                          <th>Name</th>
+                          <th>Password</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
-                        $select_appointments = $conn->prepare("SELECT * FROM `appointment`");
-                        $select_appointments->execute();
-                        while ($row = $select_appointments->fetch(PDO::FETCH_ASSOC)) {
+                        $select_admins = $conn->prepare("SELECT * FROM `admins`");
+                        $select_admins->execute();
+                        while ($row = $select_admins->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                           <tr>
-                            <td><?= $row['PatientName']; ?></td>
-                            <td><?= $row['PatientMobileNumber']; ?></td>
-                            <td><?= $row['Doctor']; ?></td>
+                            <td><?= $row['name']; ?></td>
+                            <td><?= $row['password']; ?></td>
                             <td>
                               <form method="POST" action="">
-                                <input type="hidden" name="user_id" value="<?= $row['id']; ?>">
+                                <input type="hidden" name="admin_id" value="<?= $row['id']; ?>">
                                 <button type="submit" name="delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this appointment?')">Delete</button>
                               </form>
                             </td>
