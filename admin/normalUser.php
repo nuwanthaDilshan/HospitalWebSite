@@ -12,8 +12,8 @@ if (!isset($admin_id)) {
 
 if (isset($_POST['delete'])) {
   $user_id = $_POST['user_id'];
-  $delete_users = $conn->prepare("DELETE FROM `users` WHERE No = ?");
-  $delete_users->execute([$clinicdetail_id]);
+  $delete_users = $conn->prepare("DELETE FROM `users` WHERE id = ?");
+  $delete_users->execute([$user_id]);
   $message[] = 'User deleted successfully!';
 }
 

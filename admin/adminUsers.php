@@ -66,8 +66,8 @@ if (isset($_POST['delete'])) {
             $number_of_admin = $select_admin->rowCount()
             ?>
             <p class="fs-3"><?= $number_of_admin; ?></p>
-            <p class="fs-5">Add admin</p>
-            <a href="addAdminUsers.php" class="option-btn">Add admin</a>
+            <p class="fs-5">Admins</p>
+                <a href="addAdminUsers.php" class="option-btn">Add admin</a>
           </div>
         </div>
       </div>
@@ -98,21 +98,23 @@ if (isset($_POST['delete'])) {
                       </thead>
                       <tbody>
                         <?php
-                        $select_admins = $conn->prepare("SELECT * FROM `admins`");
-                        $select_admins->execute();
-                        while ($row = $select_admins->fetch(PDO::FETCH_ASSOC)) {
+                        $select_accounts = $conn->prepare("SELECT * FROM `admins`");
+                        $select_accounts->execute();
+                        if ($select_accounts->rowCount() > 0) {
+                          while ($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)) {
                         ?>
-                          <tr>
-                            <td><?= $row['name']; ?></td>
-                            <td><?= $row['password']; ?></td>
-                            <td>
-                              <form method="POST" action="">
-                                <input type="hidden" name="admin_id" value="<?= $row['id']; ?>">
+                            <tr>
+                              <td><?= $fetch_accounts['name']; ?></td>
+                              <td><?= $fetch_accounts['password']; ?></td>
+                              <td>
+                                <input type="hidden" name="admin_id" value="<?= $fetch_accounts['id']; ?>">
                                 <button type="submit" name="delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this appointment?')">Delete</button>
-                              </form>
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
                         <?php
+                          }
+                        } else {
+                          echo '<p class="empty">no accounts available!</p>';
                         }
                         ?>
                       </tbody>

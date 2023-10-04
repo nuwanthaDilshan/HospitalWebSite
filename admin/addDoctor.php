@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
                   <form method="POST" action="">
                     <div class="d-flex align-items-center mb-3 pb-1">
                       <i class="fas fa-id-badge"></i>
-                      <span class="h1 fw-bold mb-0">Add Admin User</span>
+                      <span class="h1 fw-bold mb-0">Add Doctor User</span>
                     </div>
 
                     <div class="form-outline mb-4">
