@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
 
   if ($select_admin->rowCount() > 0) {
     $_SESSION['admin_id'] = $row['id'];
-    header('location:../admin.php');
+    header('location:./admin.php');
   } else {
     $message[] = 'incorrect username or password!';
   }
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
   if (isset($message)) {
     foreach ($message as $message) {
       echo '
-         <div class="message">
+         <div class="message container">
             <span>' . $message . '</span>
             <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
          </div>

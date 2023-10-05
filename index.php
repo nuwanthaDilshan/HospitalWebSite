@@ -56,6 +56,7 @@ if (isset($_SESSION['user_id'])) {
               education,<br> testing and treatment for STD and advices about safer sex.</h2>
           </div>
           <div class="d-flex justify-content-center">
+            <!-- <a href="./clinicDetails.php" class="btn main-btn btn-size" onclick="return confirm('Please Login to See Clinic Details!');"> Clinic Details </a> -->
             <a href="./clinicDetails.php" class="btn main-btn btn-size"> Clinic Details </a>
           </div>
         </div>

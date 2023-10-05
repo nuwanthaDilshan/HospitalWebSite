@@ -71,9 +71,11 @@ if (isset($_SESSION['user_id'])) {
             responce to sexual transmitted infections including HIV/AIDS in
             sri lanka
           </p>
-          <button class="btn text-white mt-3" style="background-color: #5bc0de">
-            Read More
-          </button>
+          <div class="d-flex justify-content-center">
+            <a class="btn main-btn mt-3 " style="width: 25%;">
+              Read More
+            </a>
+          </div>
         </div>
       </div>
     </div>

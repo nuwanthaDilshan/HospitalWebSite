@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2021 at 05:02 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.7
+-- Generation Time: Oct 04, 2023 at 11:52 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,26 +18,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hospital2`
+-- Database: `hospital`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `admins`
 --
 
-CREATE TABLE `admin` (
-  `Email` varchar(100) NOT NULL,
-  `Password` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `admins` (
+  `id` int(100) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data for table `admins`
 --
 
-INSERT INTO `admin` (`Email`, `Password`) VALUES
-('admin@gmail.com', 'admin');
+INSERT INTO `admins` (`id`, `name`, `password`) VALUES
+(1, 'admin', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2');
 
 -- --------------------------------------------------------
 
@@ -46,10 +47,19 @@ INSERT INTO `admin` (`Email`, `Password`) VALUES
 --
 
 CREATE TABLE `appointment` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `PatientName` varchar(100) NOT NULL,
   `PatientMobileNumber` int(11) NOT NULL,
   `Doctor` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`id`, `user_id`, `PatientName`, `PatientMobileNumber`, `Doctor`) VALUES
+(39, 10, 'normal', 776379211, 'Dinithi');
 
 -- --------------------------------------------------------
 
@@ -65,7 +75,7 @@ CREATE TABLE `clinicdetail` (
   `Doctor` varchar(100) NOT NULL,
   `Day` varchar(50) NOT NULL,
   `Time` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `clinicdetail`
@@ -79,8 +89,7 @@ INSERT INTO `clinicdetail` (`No`, `Disease`, `Treatment`, `Testing`, `Doctor`, `
 (6, 'Pubic lice', 'Insecticide shampoo, Cream, Lotion, Follow the advices', '---------', 'Dr.Sadun', 'Wednesday', '08:30:00'),
 (7, 'Trichomoniasis', 'Metronidazole, Tinidazole', 'Nucleic acid amplification test, Molecular test, Direct DNA probes', 'Dr.Rasika', 'Thursday', '13:00:00'),
 (8, 'Herpes', 'Acyclovir, Famvir, Valtrex', 'PCR test, Blood test', 'Dr.Rashmi', 'Friday', '09:00:00'),
-(9, 'Hepatitis', 'B Baraclude, Viread, Epivi, Tyzeka', 'HBsAG test, Anti-HBc test', 'Dr.Santha', 'Thursday', '08:15:00'),
-(10, 'Scabies', 'Permethrin crea, Malathion lotion, Permethrin 5% cream, Malathion 0.5% lotion', 'STI screen, HIV test', 'Dr.chathunika', 'Thursday', '08:45:00');
+(9, 'Hepatitis', 'B Baraclude, Viread, Epivi, Tyzeka', 'HBsAG test, Anti-HBc test', 'Dr.Santha', 'Thursday', '08:15:00');
 
 -- --------------------------------------------------------
 
@@ -89,11 +98,20 @@ INSERT INTO `clinicdetail` (`No`, `Disease`, `Treatment`, `Testing`, `Doctor`, `
 --
 
 CREATE TABLE `contactus` (
-  `name` varchar(200) NOT NULL,
-  `message` varchar(500) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `mobile` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contactus`
+--
+
+INSERT INTO `contactus` (`id`, `user_id`, `name`, `email`, `number`, `message`) VALUES
+(10, 10, 'Nuwantha Dilshan', 'nuwanthadilshan56@gmail.com', 741900211, 'hi');
 
 -- --------------------------------------------------------
 
@@ -102,21 +120,20 @@ CREATE TABLE `contactus` (
 --
 
 CREATE TABLE `doctor` (
-  `Id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `Name` varchar(100) NOT NULL,
   `AppointmentDay` varchar(50) NOT NULL,
   `AppointmentTime` time NOT NULL,
   `EmailAddress` varchar(100) NOT NULL,
   `Password` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`Id`, `Name`, `AppointmentDay`, `AppointmentTime`, `EmailAddress`, `Password`) VALUES
-(12, 'Dilshan', 'Monday', '08:20:00', 'dilshan@gmail.com', '123'),
-(13, 'Dinithi', 'Monday', '07:00:00', 'dinithi@gmail.com', '456');
+INSERT INTO `doctor` (`id`, `Name`, `AppointmentDay`, `AppointmentTime`, `EmailAddress`, `Password`) VALUES
+(5, 'Doctor', 'Monday', '08:30:00', 'doctor@gmail.com', '6216f8a75fd5bb3d5f22');
 
 -- --------------------------------------------------------
 
@@ -125,28 +142,35 @@ INSERT INTO `doctor` (`Id`, `Name`, `AppointmentDay`, `AppointmentTime`, `EmailA
 --
 
 CREATE TABLE `users` (
+  `id` int(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
   `MobileNumber` int(11) NOT NULL,
-  `EmailAddress` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `Password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`Name`, `MobileNumber`, `EmailAddress`, `Password`) VALUES
-('dila', 23113132, 'dila@gmail.com', 'dila');
+INSERT INTO `users` (`id`, `Name`, `MobileNumber`, `email`, `Password`) VALUES
+(10, 'normal', 776379211, 'normal@gmail.com', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `admins`
 --
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`Email`);
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `appointment`
+--
+ALTER TABLE `appointment`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `clinicdetail`
@@ -155,17 +179,62 @@ ALTER TABLE `clinicdetail`
   ADD PRIMARY KEY (`No`);
 
 --
+-- Indexes for table `contactus`
+--
+ALTER TABLE `contactus`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `doctor`
 --
 ALTER TABLE `doctor`
-  ADD PRIMARY KEY (`Id`),
-  ADD UNIQUE KEY `EmailAddress` (`EmailAddress`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`EmailAddress`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `appointment`
+--
+ALTER TABLE `appointment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `clinicdetail`
+--
+ALTER TABLE `clinicdetail`
+  MODIFY `No` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `contactus`
+--
+ALTER TABLE `contactus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `doctor`
+--
+ALTER TABLE `doctor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

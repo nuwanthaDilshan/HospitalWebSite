@@ -201,10 +201,10 @@ p {
 .message{
    position: sticky;
    top:0;
-   max-width: 1200px;
+   /* max-width: 1200px; */
    margin:0 auto;
    background-color: var(--light-bg);
-   padding:2rem;
+   padding:0.25rem;
    display: flex;
    align-items: center;
    justify-content: space-between;
