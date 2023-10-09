@@ -38,14 +38,12 @@ if (isset($_SESSION['user_id'])) {
 
 <body>
   <!-- navigation bar -->
-
   <?php
 
   include "./components/userheader.php"
 
   ?>
   <!-- home -->
-
   <div>
     <div id="hero" class="col-12 min-vh-100 text-center align-items-center d-flex">
       <div class="container">
