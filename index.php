@@ -26,9 +26,7 @@ if (isset($_SESSION['user_id'])) {
   <!-- link font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-
   <!-- link css -->
-
   <link rel="stylesheet" href="css/style.css" />
 
   <title>NSACP HOSPITAL</title>
