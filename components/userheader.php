@@ -48,7 +48,7 @@ if (isset($message)) {
             </div>
             <div class="flex-btn">
                <!-- <a href="register.php" class="option-btn">register</a>
-            <a href="login.php" class="option-btn">login</a> -->
+               <a href="login.php" class="option-btn">login</a> -->
             </div>
             <a href="./components/userlogout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a>
          <?php
