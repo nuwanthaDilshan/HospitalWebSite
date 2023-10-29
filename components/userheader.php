@@ -12,24 +12,19 @@ if (isset($message)) {
 ?>
 
 <header class="header">
-
    <section class="flex container">
-
       <a href="./index.php" class="logo">NSACP<span>.</span></a>
-
       <nav class="navbar">
          <a href="./index.php">Home</a>
          <a href="./aboutUs.php">About</a>
          <a href="./services.php">Services</a>
          <a href="./contactUs.php">Contact</a>
       </nav>
-
       <div class="icons">
          <div id="menu-btn" class="fas fa-bars py-2"></div>
          <!-- <a href="search_page.php"><i class="fas fa-search"></i></a> -->
          <div id="user-btn" class="fas fa-user py-2"></div>
       </div>
-
       <div class="profile">
          <?php
          $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
