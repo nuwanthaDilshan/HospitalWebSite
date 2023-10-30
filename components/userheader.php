@@ -58,10 +58,6 @@ if (isset($message)) {
          <?php
          }
          ?>
-
-
       </div>
-
    </section>
-
 </header>
