@@ -12,7 +12,6 @@ if (isset($message)) {
 ?>
 
 <header class="header">
-
   <section class="flex container">
 
     <a href="../admin/admin.php" class="logo">Admin<span>Panel</span></a>
@@ -48,5 +47,4 @@ if (isset($message)) {
     </div>
 
   </section>
-
 </header>
