@@ -13,9 +13,7 @@ if (isset($message)) {
 
 <header class="header">
   <section class="flex container">
-
     <a href="../admin/admin.php" class="logo">Admin<span>Panel</span></a>
-
     <nav class="navbar">
       <a href="../admin/admin.php">Home</a>
       <a href="../admin/appointment.php">Appointments</a>
@@ -25,12 +23,10 @@ if (isset($message)) {
       <a href="../admin/doctor.php">Doctor Users</a>
       <a href="../admin/message.php">Messages</a>
     </nav>
-
     <div class="icons">
       <div id="menu-btn" class="fas fa-bars py-2"></div>
       <div id="user-btn" class="fas fa-user py-2"></div>
     </div>
-
     <div class="profile">
       <?php
       $select_profile = $conn->prepare("SELECT * FROM `admins` WHERE id = ?");
@@ -44,7 +40,6 @@ if (isset($message)) {
         <a href="#" class="option-btn">login</a>
       </div>
       <a href="../components/admin_logout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a>
-    </div>
-
+    </div
   </section>
 </header>
