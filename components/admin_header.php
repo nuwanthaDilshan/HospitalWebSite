@@ -40,6 +40,6 @@ if (isset($message)) {
         <a href="#" class="option-btn">login</a>
       </div>
       <a href="../components/admin_logout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a>
-    </div
+</div>
   </section>
 </header>
