@@ -44,22 +44,16 @@ if (isset($_POST['submit'])) {
     <!-- link font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- link css -->
-
+    <!-- link css --
     <link rel="stylesheet" href="css/style.css" />
 
     <title>NSACP HOSPITAL</title>
 </head>
 
 <body>
-
     <?php
-
     include "./components/userheader.php";
-
     ?>
-
-
     <section class="vh-1000" style="background-color: #0489b1">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
