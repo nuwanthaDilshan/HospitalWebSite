@@ -78,7 +78,6 @@ if (isset($_SESSION['user_id'])) {
     </div>
   </section>
   
-
   <!-- footer -->
   <?php
 
