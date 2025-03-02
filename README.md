@@ -45,6 +45,7 @@ $database = "hospital";
 - If using XAMPP, place the project folder in htdocs.
 - Start Apache & MySQL from XAMPP Control Panel.
 - Open your browser and go to:
+
 http://localhost/HospitalWebSite
 
 ```
