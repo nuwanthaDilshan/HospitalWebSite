@@ -13,7 +13,7 @@ NSACP Hospital Management System is a web-based application designed to streamli
 
 # 🛠️ Technologies Used
 - Frontend: HTML, CSS, Bootstrap, JavaScript
-- Backend: PHP (Core PHP / Laravel)
+- Backend: PHP (Core PHP)
 - Database: MySQL
 - Version Control: Git & GitHub
 
