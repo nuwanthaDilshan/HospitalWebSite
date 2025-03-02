@@ -26,6 +26,7 @@ if (isset($_POST['submit'])) {
     } else {
         $message[] = 'incorrect username or password!';
     }
+    
 }
 
 ?>
