@@ -70,3 +70,12 @@ user name: doctor@gmail.com
 password: 111
 
 ```
+
+## 🤝 Contributing
+We welcome contributions!
+
+- Fork the repository
+- Create a feature branch (feature/new-functionality)
+- Commit your changes (git commit -m "Added new feature")
+- Push to the branch (git push origin feature/new-functionality)
+- Create a Pull Request
