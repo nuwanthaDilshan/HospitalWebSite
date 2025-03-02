@@ -50,6 +50,8 @@ http://localhost/HospitalWebSite
 
 ```
 
+#### Login Details
+
 ```sh
 ### admin
 
