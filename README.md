@@ -27,7 +27,7 @@ cd HospitalWebSite
 
 ##  Import the database
 - Open phpMyAdmin
-- Create a database (e.g., hospital_db)
+- Create a database (e.g., hospital)
 - Import database.sql file
 
 ## Configure Database Connection
